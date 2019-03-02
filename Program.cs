@@ -57,10 +57,10 @@ namespace DocumentMerger
                 try
                 {
                     filedoc = new StreamWriter(mergedFile);
-                    doc.WriteLine(file1);
-                    doc.WriteLine(file2);
+                    filedoc.WriteLine(file1);
+                    filedoc.WriteLine(file2);
                     Console.WriteLine("{0} was successfully saved in the current directory. The document contains {1} characters.", mergedFile, count);
-                    doc.Close();
+                    filedoc.Close();
                 }
                 catch (Exception e1)
                 {
