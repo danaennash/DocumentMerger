@@ -21,7 +21,7 @@ namespace DocumentMerger
              file1 = Console.ReadLine();
             }
         
-          if (File.Exists(file1) == true)
+          if (File.Exists(file1 + ".txt") == true)
             {
               Console.WriteLine("File found.\n");
             }
@@ -35,7 +35,7 @@ namespace DocumentMerger
               file1 = Console.ReadLine();
             }
         
-          if(File.Exists(file2) == true)
+          if(File.Exists(file2 + ".txt") == true)
             {
               Console.WriteLine("File found.\n");
             }
