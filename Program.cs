@@ -130,7 +130,7 @@ namespace DocumentMerger
                 Console.WriteLine("Would you like to merge another file? (y/n): ");
             } while (Console.ReadLine().ToLower().Equals("y"));*/
         
-      }
-    }
-  }
+//      }
+//    }
+//  }
 
