@@ -143,73 +143,128 @@ namespace DocumentMerger
     {
         static void Main(string[] args)
         {
+            //Application Title
             Console.WriteLine("Document Merger");
+
+            //Operation
             do
             {
-                string doc1 = GetValidDocument();
-                string doc2 = GetValidDocument();
-                string mergedFileName = doc1.Substring(0, doc1.Length - 4) + doc2;
-                StreamWriter writer = null;
+                //First File Operation
+                Console.WriteLine("Enter name of 1st file:");
+                string input1 = Console.ReadLine();
+                string f1;
+
+                //When First File is FALSE
+                while (File.Exists(input1) == false)
+                {
+                    Console.WriteLine("File does not exsist, please enter a valid file:");
+                    input1 = Console.ReadLine();
+                }
+
+                //When First File is TRUE
+                if (File.Exists(input1) == true)
+                {
+                    try
+                    {
+                        //Writes out First File
+                        StreamReader sr1 = new StreamReader(input1);
+                        f1 = sr1.ReadLine();
+                        while (f1 != null)
+                        {
+                            Console.WriteLine(f1);
+                            f1 = sr1.ReadLine();
+                        }
+                        sr1.Close();
+                        Console.ReadLine();
+                    }
+                    finally
+                    {
+                        Console.WriteLine("File has been opened.");
+                    }
+                }
+
+                Console.WriteLine("\n");
+
+                //Second File Operation
+                Console.WriteLine("Enter name of 2nd file:");
+                string input2 = Console.ReadLine();
+                string f2;
+
+                //When Second File is FALSE
+                while (File.Exists(input2) == false)
+                {
+                    Console.WriteLine("File does not exsist, please enter a valid file:");
+                    input2 = Console.ReadLine();
+                }
+
+                //When Second File is TRUE
+                if (File.Exists(input2) == true)
+                {
+                    try
+                    {
+                        //Writes out Second File
+                        StreamReader sr2 = new StreamReader(input2);
+                        f2 = sr2.ReadLine();
+                        while (f2 != null)
+                        {
+                            Console.WriteLine(f2);
+                            f2 = sr2.ReadLine();
+                        }
+                        sr2.Close();
+                        Console.ReadLine();
+                    }
+                    finally
+                    {
+                        Console.WriteLine("File has been opened.");
+                    }
+                }
+
+                Console.WriteLine("\n");
+
+                //Merging Operation
+                string docMerge = input1 + input2 + ".txt";
+                Console.WriteLine("Documents Being Merged: {0} & {1}", input1, input2);
+                Console.WriteLine("New Merged Document Name: {0}", docMerge);
+
+                string path1 = File.ReadAllText(input1);
+                string path2 = File.ReadAllText(input2);
+
+                Console.WriteLine("\n");
+
+                //Character Count
+                string Content = path1 + path2;
+                int charCount = 0;
+                foreach (char c in Content)
+                {
+                    if (char.IsLetter(c))
+                    {
+                        charCount++;
+                    }
+                }
+
+                //Writing of Merged Documents
+                StreamWriter doc = null;
                 try
                 {
-                    writer = new StreamWriter(mergedFileName);
-                    int count = WriteFileContents(writer, doc1);
-                    count += WriteFileContents(writer, doc2);
-                    Console.WriteLine("{0} was saved successfully. There are {1} characters", mergedFileName);
+                    doc = new StreamWriter(docMerge);
+                    doc.WriteLine(path1);
+                    doc.WriteLine(path2);
+                    Console.WriteLine("{0} was successfully saved in the current directory. The document contains {1} characters.", docMerge, charCount);
+                    doc.Close();
                 }
-                catch (Exception e)
+                catch (Exception e1)
                 {
-                    Console.WriteLine("Error writing to {0}: {1}", mergedFileName, e.Message);
+                    Console.WriteLine("Exception: " + e1.Message);
                 }
                 finally
                 {
-                    if (writer != null)
+                    if (doc != null)
                     {
-                        writer.Close();
+                        doc.Close();
                     }
                 }
-                Console.Write("\nWould you like to merge two more documents? (y/n): ");
-            }
-            while (Console.ReadLine().ToLower() == "y");
-        }
-
-        static string GetValidDocument()
-        {
-            Console.Write("Enter the name of a document: ");
-            string doc;
-            while ((doc = Console.ReadLine()).Length == 0 || !File.Exists(doc))
-            {
-                Console.Write("Document not found, enter a valid document name: ");
-            }
-            return doc;
-        }
-
-        static int WriteFileContents(StreamWriter writer, string file)
-        {
-            StreamReader reader = null;
-            int count = 0;
-            try
-            {
-                reader = new StreamReader(file);
-                string line = null;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    count += line.Length;
-                    writer.WriteLine(line);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error writing {0} to new file: {1}", file, e.Message);
-            }
-            finally
-            {
-                if (reader != null)
-                {
-                    reader.Close();
-                }
-            }
-            return count;
+                Console.WriteLine("Would you like to merge another set of documents? (Yes or No): ");
+            } while (Console.ReadLine().ToLower().Equals("yes"));
         }
     }
 }
