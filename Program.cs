@@ -104,7 +104,7 @@ namespace DocumentMerger
                     doc = new StreamWriter(mergedFile);
                     doc.WriteLine(context1);
                     doc.WriteLine(context2);
-                    Console.WriteLine("{0} was successfully saved in the current directory. The document contains {1} characters.", docMerge, charCount);
+                    Console.WriteLine("{0} was successfully saved in the current directory. The document contains {1} characters.", mergedFile, charCount);
                     doc.Close();
                 }
                 catch (Exception e1)
