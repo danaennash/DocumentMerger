@@ -26,7 +26,7 @@ namespace DocumentMerger
               Console.WriteLine("File found.\n");
             }
         
-        Console.WriteLine("Enter second file:")
+        Console.WriteLine("Enter second file:");
           string file2 = Console.ReadLine();
         
           while (File.Exists(file2) == false)
@@ -79,4 +79,4 @@ namespace DocumentMerger
       }
     }
   }
-}
+
